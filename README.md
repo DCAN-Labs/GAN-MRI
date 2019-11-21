@@ -6,7 +6,18 @@
 
 
 ### Code usage  
-1. Prepare your dataset under the directory 'data' in the CycleGAN or UNIT folder and
+1. Set up a python3 virtual environment for the necessary python packages with python
+```
+python3 -m venv gpu-gan-venv
+source gpu-gan-venv/bin/activate
+```
+    * Once the virtual environment is activated install the dependencies from requirements.txt
+```
+pip install -r requirements.txt
+```
+    * Finally, install keras-contrib from source: https://github.com/keras-team/keras-contrib
+
+2. Prepare your dataset under the directory 'data' in the CycleGAN or UNIT folder and
 set dataset name to parameter 'image_folder' in model init function.
   * Directory structure on new dataset needed for training and testing:
     * data/Dataset-name/trainA
@@ -14,7 +25,7 @@ set dataset name to parameter 'image_folder' in model init function.
     * data/Dataset-name/testA
     * data/Dataset-name/testB  
 
-2. Train a model by:
+3. Train a model by:
 ```
 python CycleGAN.py
 ```
@@ -23,7 +34,7 @@ or
 python UNIT.py
 ```  
 
-3. Generate synthetic images by following specifications under:
+4. Generate synthetic images by following specifications under:
   * CycleGAN/generate_images/ReadMe.md
   * UNIT/generate_images/ReadMe.md
 

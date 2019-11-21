@@ -1,5 +1,5 @@
 from keras.layers import Layer, Input, Conv2D, Activation, add, BatchNormalization, UpSampling2D, ZeroPadding2D, Conv2DTranspose, Flatten, MaxPooling2D, AveragePooling2D
-from keras_contrib.layers.normalization import InstanceNormalization, InputSpec
+from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization, InputSpec
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense
 from keras.optimizers import Adam
@@ -29,7 +29,7 @@ np.random.seed(seed=12345)
 
 
 class CycleGAN():
-    def __init__(self, lr_D=2e-4, lr_G=2e-4, image_shape=(304, 256, 1),
+    def __init__(self, lr_D=2e-4, lr_G=2e-4, image_shape(292, 292, 1), #image_shape=(304, 256, 1),
                  date_time_string_addition='', image_folder='MR'):
         self.img_shape = image_shape
         self.channels = self.img_shape[-1]
@@ -67,7 +67,7 @@ class CycleGAN():
         self.use_resize_convolution = False
 
         # Supervised learning part - for MR images - comparison
-        self.use_supervised_learning = False
+        self.use_supervised_learning = True
         self.supervised_weight = 10.0
 
         # Fetch data during training instead of pre caching all images - might be necessary for large datasets
