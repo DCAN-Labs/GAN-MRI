@@ -29,8 +29,8 @@ np.random.seed(seed=12345)
 
 
 class CycleGAN():
-    def __init__(self, lr_D=2e-4, lr_G=2e-4, image_shape(292, 292, 1), #image_shape=(304, 256, 1),
-                 date_time_string_addition='', image_folder='MR'):
+    def __init__(self, lr_D=2e-4, lr_G=2e-3, image_shape=(292, 292, 1), #image_shape=(304, 256, 1),
+                 date_time_string_addition='', image_folder='MR_infant'):
         self.img_shape = image_shape
         self.channels = self.img_shape[-1]
         self.normalization = InstanceNormalization
@@ -44,7 +44,7 @@ class CycleGAN():
         self.discriminator_iterations = 1  # Number of generator training iterations in each training loop
         self.beta_1 = 0.5
         self.beta_2 = 0.999
-        self.batch_size = 1
+        self.batch_size = 123
         self.epochs = 200  # choose multiples of 25 since the models are save each 25th epoch
         self.save_interval = 1
         self.synthetic_pool_size = 50
@@ -54,7 +54,7 @@ class CycleGAN():
         self.decay_epoch = 101  # The epoch where the linear decay of the learning rates start
 
         # Identity loss - sometimes send images from B to G_A2B (and the opposite) to teach identity mappings
-        self.use_identity_learning = False
+        self.use_identity_learning = True
         self.identity_mapping_modulus = 10  # Identity mapping will be done each time the iteration number is divisable with this number
 
         # PatchGAN - if false the discriminator learning rate should be decreased
@@ -68,7 +68,7 @@ class CycleGAN():
 
         # Supervised learning part - for MR images - comparison
         self.use_supervised_learning = True
-        self.supervised_weight = 10.0
+        self.supervised_weight = 20.0
 
         # Fetch data during training instead of pre caching all images - might be necessary for large datasets
         self.use_data_generator = False
@@ -239,8 +239,8 @@ class CycleGAN():
         # ======= Initialize training ==========
         sys.stdout.flush()
         #plot_model(self.G_A2B, to_file='GA2B_expanded_model_new.png', show_shapes=True)
-        self.train(epochs=self.epochs, batch_size=self.batch_size, save_interval=self.save_interval)
-        #self.load_model_and_generate_synthetic_images()
+        #self.train(epochs=self.epochs, batch_size=self.batch_size, save_interval=self.save_interval)
+        self.load_model_and_generate_synthetic_images()
 
 #===============================================================================
 # Architecture functions
